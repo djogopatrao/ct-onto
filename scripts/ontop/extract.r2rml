@@ -1,0 +1,53 @@
+@prefix :      <http://cipe.accamargo.org.br/ontologias/poc1.owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix dc:    <http://purl.org/dc/elements/1.1/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+
+<#TriplesMap1>
+    rr:logicalTable [ rr:sqlQuery """
+        select 
+              cd_atendimento
+            , dt_registro
+        from
+            dbamv.registro_documento
+        where cd_documento = 10850 and dt_registro >= '01-MAR-2017'
+    """
+     ]; 
+    rr:subjectMap [
+        rr:template "http://cipe.accamargo.org.br/ontologias/poc1.owl#protocolo_{cd_atendimento}";
+        rr:class :ProtocoloProfilaxiaDeTev;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:comment;
+        rr:objectMap [ rr:template "cd_atendime: {cd_atendimento}, dt_doc:{dt_registro}" ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate :temEtapaInicial;
+        rr:objectMap [ rr:parentTriplesMap <#TriplesMap2> ];
+    ].
+
+
+<#TriplesMap2>
+    rr:logicalTable [ rr:sqlQuery """
+select
+    cd_atendimento
+  , ds_pergunta
+  , ds_resposta 
+from  dbamv.registro_documento
+    , dbamv.registro_resposta
+    , dbamv.pergunta_doc
+where cd_documento = 10850 and dt_registro >= '01-MAR-2017'
+and registro_resposta.cd_registro_documento = registro_documento.cd_registro_documento  
+and pergunta_doc.cd_pergunta_doc = registro_resposta.cd_pergunta_doc and ds_pergunta = 'CKB1'
+    """
+     ]; 
+    rr:subjectMap [
+        rr:template "http://cipe.accamargo.org.br/ontologias/poc1.owl#protocolo_{cd_atendimento}_E000";
+        rr:class :ProtocoloProfilaxiaDeTev;
+    ];
+    rr:predicateObjectMap [
+        rr:predicate rdfs:comment;
+        rr:objectMap [ rr:template "ds_pergunta: {ds_pergunta}, ds_resposta:{ds_resposta}" ];
+    ]
+.
