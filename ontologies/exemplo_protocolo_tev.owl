@@ -51,10 +51,18 @@
     
 
 
+    <!-- http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#Aplicação -->
+
+    <owl:Class rdf:about="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#Aplicação">
+        <rdfs:subClassOf rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#EtapaProtocolo"/>
+    </owl:Class>
+    
+
+
     <!-- http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#AplicaçãoMeiaElástica -->
 
     <owl:Class rdf:about="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#AplicaçãoMeiaElástica">
-        <rdfs:subClassOf rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#EtapaProtocolo"/>
+        <rdfs:subClassOf rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#Aplicação"/>
     </owl:Class>
     
 
@@ -67,9 +75,9 @@
     
 
 
-    <!-- http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#AvaliaçãoDeRiscoDeTEV -->
+    <!-- http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#AvaliaçãoDeRiscoTEV -->
 
-    <owl:Class rdf:about="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#AvaliaçãoDeRiscoDeTEV">
+    <owl:Class rdf:about="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#AvaliaçãoDeRiscoTEV">
         <rdfs:subClassOf rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#AvaliaçãoDeRisco"/>
     </owl:Class>
     
@@ -135,6 +143,22 @@
     
 
 
+    <!-- http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#ProtocoloProfilaxiaTEVComRecomendacaoDeAnticoagulante -->
+
+    <owl:Class rdf:about="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#ProtocoloProfilaxiaTEVComRecomendacaoDeAnticoagulante">
+        <rdfs:subClassOf rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#ProtocoloProfilaxiaTEV"/>
+    </owl:Class>
+    
+
+
+    <!-- http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#ProtocoloProfilaxiaTEVComRecomendacaoDeMeiaElastica -->
+
+    <owl:Class rdf:about="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#ProtocoloProfilaxiaTEVComRecomendacaoDeMeiaElastica">
+        <rdfs:subClassOf rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#ProtocoloProfilaxiaTEV"/>
+    </owl:Class>
+    
+
+
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -145,32 +169,52 @@
 
     <owl:Restriction>
         <owl:onProperty rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#temEtapaInicial"/>
-        <owl:someValuesFrom>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#AvaliaçãoDeRiscoDeTEV"/>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#temProximaEtapa"/>
-                        <owl:someValuesFrom>
-                            <owl:Class>
-                                <owl:intersectionOf rdf:parseType="Collection">
-                                    <rdf:Description rdf:about="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#PrescriçãoMeiaElástica"/>
-                                    <owl:Restriction>
-                                        <owl:onProperty rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#temProximaEtapa"/>
-                                        <owl:someValuesFrom rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#AplicaçãoMeiaElástica"/>
-                                    </owl:Restriction>
-                                </owl:intersectionOf>
-                            </owl:Class>
-                        </owl:someValuesFrom>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:someValuesFrom>
+        <owl:someValuesFrom rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#AvaliaçãoDeRiscoTEV"/>
         <rdfs:subClassOf rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#ProtocoloProfilaxiaTEV"/>
+    </owl:Restriction>
+    <owl:Restriction>
+        <owl:onProperty rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#temEtapaInicial"/>
+        <owl:someValuesFrom>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#temProximaEtapa"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#PrescriçãoAnticoagulante"/>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#temProximaEtapa"/>
+                                <owl:someValuesFrom rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#InfusãoAnticoagulante"/>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </owl:someValuesFrom>
+        <rdfs:subClassOf rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#ProtocoloProfilaxiaTEVComRecomendacaoDeAnticoagulante"/>
+    </owl:Restriction>
+    <owl:Restriction>
+        <owl:onProperty rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#temEtapaInicial"/>
+        <owl:someValuesFrom>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#temProximaEtapa"/>
+                <owl:someValuesFrom>
+                    <owl:Class>
+                        <owl:intersectionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#PrescriçãoMeiaElástica"/>
+                            <owl:Restriction>
+                                <owl:onProperty rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#temProximaEtapa"/>
+                                <owl:someValuesFrom rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#AplicaçãoMeiaElástica"/>
+                            </owl:Restriction>
+                        </owl:intersectionOf>
+                    </owl:Class>
+                </owl:someValuesFrom>
+            </owl:Restriction>
+        </owl:someValuesFrom>
+        <rdfs:subClassOf rdf:resource="http://cipe.accamargo.org.br/ontologias/exemplo_protocolo_tev.owl#ProtocoloProfilaxiaTEVComRecomendacaoDeMeiaElastica"/>
     </owl:Restriction>
 </rdf:RDF>
 
 
 
-<!-- Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi -->
+<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
 
